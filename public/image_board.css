@@ -1,0 +1,140 @@
+body {
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    background-image: url("/public/wallpaper.jpg");
+    background-size: auto;
+}
+
+#main {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+
+}
+
+.card {
+    width: 17%;
+    height: 400px;
+    border: 20px solid;
+    margin: 0 auto;
+    display: inline-block;
+    overflow: hidden;
+    border-image: url("/public/wood.jpg") 30 round;
+    background-color: white;
+    -webkit-box-shadow: 5px 5px 5px 1px rgba(0,0,0,0.75);
+    -moz-box-shadow: 5px 5px 5px 1px rgba(0,0,0,0.75);
+    box-shadow: 5px 5px 5px 1px rgba(0,0,0,0.75);
+    padding: 2px solid rgba(0,0,0,0.75);
+
+}
+
+
+.home-images {
+    max-width: 100%;
+    max-height: 50%;
+}
+
+.home-description {
+    text-align: left;
+    padding: 10px;
+    -webkit-margin: 0;
+    font-style: italic;
+}
+
+.home-title {
+    padding: 5px;
+}
+
+
+.image-data {
+    width: 100%;
+    height: auto;
+}
+
+.image-border {
+    background-image: url("/public/wood.jpg");
+    background-size: contain;
+    width: auto;
+    max-width: 60%;
+    height: auto;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 20px;
+    border-top: 1px solid black;
+    border-bottom: 3px solid black;
+    border-left: 1px solid black;
+    border-right: 3px solid black;
+    -webkit-box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.75);
+    box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.75);
+
+}
+
+.image-image {
+    max-width: 90%;
+    max-height: 400px;
+    border-top: 3px solid black;
+    border-bottom: 2px solid black;
+    border-left: 3px solid black;
+    border-right: 2px solid black;
+    -webkit-box-shadow: -2px -2px 5px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: -2px -2px 5px 0px rgba(0,0,0,0.75);
+    box-shadow: -2px -2px 5px 0px rgba(0,0,0,0.75);
+}
+
+.image-description {
+    text-align: center;
+    font-style: italic;
+}
+
+.image-title {
+    font-size: 30px;
+    -webkit-margin-after: 0;
+
+}
+
+.comment-form {
+    width: 70%;
+    margin-left: auto;
+    margin-right: auto;
+    display: inline-block;
+}
+
+#input-comment-box {
+    width: 60%;
+    float: left;
+}
+
+#input-user-box {
+    width: 30%;
+    margin: 0;
+    float: right;
+}
+
+#submit-button {
+    margin-left: 200px;
+    margin-right: 200px;
+    margin-bottom: 20px;
+}
+
+#text-input-comment {
+    width: 100%;
+    height: 20px;
+}
+
+#text-input-commenter {
+    width: 100%;
+    height: 20px;
+}
+
+.input-title {
+    -webkit-margin-before: 0;
+}
+
+.comments {
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+}

@@ -1,0 +1,64 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>Image Board</title>
+    <link rel="stylesheet" href="/public/image_board.css" />
+</head>
+
+<body>
+    <h1>Welcome to Everyday Images</h1>
+    <h3>Add Your Favorite Images</h3>
+
+    <div id="main"></div>
+
+    <script id="home" type="text/handlebars">
+        {{#images}}
+            <a class="card" href="#image/{{id}}">
+                <img class="home-images" src="{{image}}">
+                <div class="card-text">
+                    <h4 class="home-title">{{title}}</h4>
+                    <p class="home-description">{{description}}</p>
+                    <p class="uploader">By: {{username}}</p>
+                </div>
+            </a>
+        {{/images}}
+    </script>
+
+    <script id="image" type="text/handlebars">
+        {{#image}}
+            <div class="image-data">
+                <h4 class="image-title">{{title}}</h4>
+                <div class="image-border">
+                    <img class="image-image" src="{{image}}">
+                </div>
+                <p>By: {{username}}</p>
+                <p class="image-description">{{description}}</p>
+            </div>
+        {{/image}}
+        <div class="comment-form">
+            <h4>Leave Your Comments Below</h4>
+            <button type="submit" id="submit-button">Submit</button>
+            <div id="input-comment-box"><input type="text" class="text-input" id="text-input-comment" name="commentInput"><p class="input-title">Comment</p></div>
+            <div id="input-user-box"><input type="text" class="text-input" id="text-input-commenter" name="usernameInput"><p class="input-title">UserName</p></div>
+        </div>
+
+        {{#comments}}
+            <div class="comments">
+                <p>{{commenter}}: {{comment}}</p>
+            </div>
+        {{/comments}}
+    </script>
+
+    <script id="upload" type="text/handlebars">
+        <h1>Hello {{name}}!</h1>
+    </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="/public/js/underscore-min.js"></script>
+    <script src="/public/js/backbone-min.js"></script>
+    <script type="text/javascript" src="/public/image_board.js"></script>
+</body>
+
+</html>
