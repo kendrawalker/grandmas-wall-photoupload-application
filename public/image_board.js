@@ -6,29 +6,32 @@
         Handlebars.templates[script.id] = Handlebars.compile(script.innerHTML);
     });
 
-//declaring Router to guide Home and Image Page
+//declaring Router to guide Home, Image, and Upload Page
     var Router = Backbone.Router.extend({
         routes: {
             '': 'home',
-            'image/:id': 'image'
+            'image/:id': 'image',
+            'upload': 'upload'
         },
         home: function() {
             var homeView = new HomeView({
                 model: new ImagesModel,
                 el: '#main'
             });
-            new ImagesModel().on('change', function() {
-                console.log(this.toJSON(homeView));
-            });
         },
         image: function(id) {
-            // console.log(id);
             var imageView = new ImageView({
                 model: new ImageModel({id: id}),
                 el: '#main'
             });
         },
-
+        upload: function() {
+            console.log('upload button was clicked');
+            var uploadView = new UploadView({
+                model: new UploadModel,
+                el: '#main'
+            });
+        }
     });
 
     var router = new Router;
@@ -37,7 +40,6 @@
     var ImagesModel = Backbone.Model.extend({
         initialize: function() {
             this.fetch();
-            // console.log(this);
         },
         url: '/images'
     });
@@ -56,22 +58,47 @@
     var ImageModel = Backbone.Model.extend({
         initialize: function() {
             this.fetch().then(console.log);
-            // console.log(this);
         },
         url: function(){
             return '/image/' + this.get('id');
         }
     });
 
+////declaring Model for pulling Comment data
     var CommentModel = Backbone.Model.extend({
         initialize: function() {
-            this.save();
+            // console.log(22);
+            this.save().then(function() {
+                console.log('save completed');
+            });
         },
         url: function() {
+            console.log(this);
             return '/image/comment/' + this.get('image_id');
         }
-
     });
+
+////declaring Model for Uploaded data
+    var UploadModel = Backbone.Model.extend({
+        save: function() {
+            var formData = new FormData();
+            formData.append('file', this.get('file'));
+            formData.append('title', this.get('title'));
+            formData.append('username', this.get('username'));
+            formData.append('description', this.get('description'));
+            return $.ajax({
+                url: '/new/image',
+                method: 'POST',
+                data: formData,
+                contentType: false,
+                processData: false
+            }).then((data) => {
+                this.set(data);
+            }).catch(function(err) {
+                console.log(err, 'ajax request');
+            });
+        }
+    })
 
 ////declaring Home View
     var HomeView = Backbone.View.extend({
@@ -105,6 +132,7 @@
             'click button': 'insertComment'
         },
         insertComment: function() {
+            console.log('insert comment initiated');
             var view = this;
             var inputComment = $('#text-input-comment').val();
             var inputCommenter = $('#text-input-commenter').val();
@@ -114,14 +142,49 @@
                 image_id: view.model.id
             }).on('change', function() {
                 alert('Comment has been saved');
-                // console.log(view);
-                // view.updatePage();
+                console.log(this.get('comments'));
+                view.model.set({
+                    comments: this.get('comments')
+                });
             });
         },
-            // updatePage: function()
     });
 
+////declaring Upload View
+    var UploadView = Backbone.View.extend({
+        initialize: function() {
+            var view = this;
+            view.render();
+        },
+        render: function() {
+            var html = Handlebars.templates.upload(this.model.toJSON());
+            console.log(html);
+            this.$el.html(html);
+        },
+        events: {
+            'click button': 'InsertUpload'
+        },
+        InsertUpload: function() {
+            var view = this;
+            var inputDesc = $('#text-input-description').val();
+            var inputUploader = $('#text-input-uploader').val();
+            var inputTitle = $('#text-input-title').val();
+            var file = $('input[type="file"]').get(0).files[0];
+            console.log(inputDesc, inputUploader, inputTitle, file);
+            console.log(file.name);
+            if(file && inputTitle && inputUploader && inputDesc) {
+                this.model.set({
+                    file: file,
+                    username: inputUploader,
+                    title: inputTitle,
+                    description: inputDesc
+                }).save().then(function(){
+                    view.render()
+                });
+            }
+        }
+    });
+
+
     Backbone.history.start();
-
-
 })();
