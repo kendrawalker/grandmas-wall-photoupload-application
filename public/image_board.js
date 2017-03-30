@@ -14,12 +14,14 @@
             'upload': 'upload'
         },
         home: function() {
+            $('#main').off();
             var homeView = new HomeView({
                 model: new ImagesModel,
                 el: '#main'
             });
         },
         image: function(id) {
+            $('#main').off();
             var imageView = new ImageView({
                 model: new ImageModel({id: id}),
                 el: '#main'
@@ -27,6 +29,7 @@
         },
         upload: function() {
             console.log('upload button was clicked');
+            $('#main').off();
             var uploadView = new UploadView({
                 model: new UploadModel,
                 el: '#main'
